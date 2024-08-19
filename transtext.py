@@ -16,6 +16,13 @@ st.title("Welcome to trans-text GChat AI")
 # Sidebar
 st.sidebar.title("Query Box")
 
+# Model selection in the sidebar
+model = st.sidebar.selectbox(
+    "Choose a model:",
+    ["llama3-8b-8192", "Gemma2-9b-it", "mixtral-8x7b-32768"],
+    index=0
+)
+
 # System prompt input in the sidebar
 system_prompt = st.sidebar.text_area("Enter system prompt (optional):", value="", height=100)
 
@@ -46,7 +53,7 @@ if uploaded_file is not None:
         file_content = read_uploaded_text(uploaded_file)
 
 # Function to query Groq API
-def query_groq(system_prompt, combined_prompt):
+def query_groq(system_prompt, combined_prompt, selected_model):
     try:
         messages = []
         if system_prompt:
@@ -61,7 +68,7 @@ def query_groq(system_prompt, combined_prompt):
         
         chat_completion = client.chat.completions.create(
             messages=messages,
-            model="llama3-8b-8192",
+            model=selected_model,  # Use the selected model
         )
         return chat_completion.choices[0].message.content
     except Exception as e:
@@ -84,8 +91,8 @@ if st.sidebar.button("Submit"):
         with st.spinner("Querying the chatbot..."):
             # Combine file content and user prompt
             combined_prompt = f"{file_content}\n{prompt}"
-            # Query Groq's API
-            reply = query_groq(system_prompt, combined_prompt)
+            # Query Groq's API with the selected model
+            reply = query_groq(system_prompt, combined_prompt, model)
             if reply:
                 st.success("Query completed!")
                 st.info(reply)
@@ -105,10 +112,9 @@ if st.sidebar.button("Reset"):
 # Instructions
 st.write("Enter a system prompt (optional) and a user prompt in the sidebar, then click 'Submit' to get a response from the LLM.")
 st.write("Alternatively, you can upload a text or PDF file to use its content as the prompt.")
-st.write("Model: llama3-8b-8192")
-
+st.write(f"Model: {model}")
 
 st.info("build by DW v1 8-19-24") #v1
-st.warning("format - translate text ")
+st.warning("translate text from many languages to and from English, format - translate text ")
 st.image("p1.PNG")
 st.image("p2.PNG")

@@ -116,5 +116,6 @@ st.write(f"Model: {model}")
 
 st.info("build by DW v1 8-19-24") #v1
 st.warning("translate text from many languages to and from English, format - translate text ")
+st.image("wa3.PNG")
 st.image("p1.PNG")
 st.image("p2.PNG")

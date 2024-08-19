@@ -10,7 +10,7 @@ client = Groq(
 )
 
 # Streamlit app
-st.image("p0.png", width=280)
+st.image("p0.PNG", width=280)
 st.title("Welcome to trans-text GChat AI")
 
 # Sidebar
@@ -110,5 +110,5 @@ st.write("Model: llama3-8b-8192")
 
 st.info("build by DW v1 8-19-24") #v1
 st.warning("format - translate text ")
-st.image("p1.png")
-st.image("p2.png")
+st.image("p1.PNG")
+st.image("p2.PNG")
